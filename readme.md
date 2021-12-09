@@ -1,4 +1,8 @@
 # Initial Setup
+ Delete `.keep` files from empty directories
+ -
+ 1. Remove all `.keep` files from `./oxford5k`, `./paris6k`, `./Paris_Queries`, `./Oxford_Queries`, `./PIRE/img_input`, and `./PIRE/img_output` 
+
  Download and Extract Dataset Images
  -
  1. Download and extract the [Oxford5k](https://www.robots.ox.ac.uk/~vgg/data/oxbuildings/) and [Paris6k](https://www.robots.ox.ac.uk/~vgg/data/parisbuildings/)
