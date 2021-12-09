@@ -1,12 +1,12 @@
 # Initial Setup
- Setup PIRE
+ Setup [PIRE](https://github.com/liuzrcc/PIRE)
  -
 
  1. Install PyTorch 1.0.0 and Python 3.6
  2. If not already created, create folder in root of PIRE folder called `img_output`
  3. Insert images to generate adversarial images for in `img_input` folder
 
-Setting up Evaluation Script
+Setting up [Evaluation Script](https://github.com/filipradenovic/cnnimageretrieval-pytorch)
 -
  1. Install PyTorch 1.0.0 and Python 3.6 if you have not done so already
  2. In order to run a set of baseline tests, from the `cnnimageretrieval-pythorch` folder run the script `run_eval.py` 
@@ -34,5 +34,8 @@ Testing PIRE with Evaluation Script
 -
  1. Insert generated adversarial queries into the respective folders for the dataset, `cnnimageretrieval-pytorch/data/test/<image dataset>/jpg`
 	 - Replace `<image dataset>` with corresponding dataset, i.e. `oxford5k` or `paris6k`
- 2. Run evaluation script as stated in the previous section with the adversarial images replacing the old images
+ 2. Run evaluation script as stated in the previous section with the adversarial images replacing the old images<br />
+
+
+> Evaluation of PIRE created by Aaron Jimenez and Laboni Sarker
 
