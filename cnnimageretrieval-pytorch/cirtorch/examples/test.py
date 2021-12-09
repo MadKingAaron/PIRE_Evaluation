@@ -62,7 +62,24 @@ parser.add_argument('--whitening', '-w', metavar='WHITENING', default=None, choi
 parser.add_argument('--gpu-id', '-g', default='0', metavar='N',
                     help="gpu id used for testing (default: '0')")
 
+def get_pkl_path(dataset, network):
+    path = os.path.abspath(os.getcwd())
+    path = os.path.join(path, 'vecs')
+    path = os.path.join(path, dataset)
+    path = os.path.join(path, 'ivecs_'+network+'.pkl')
+    return path
+def get_vecs(filepath):
+    with open(filepath, 'rb') as f:
+        return pickle.load(f)
+
+def save_vecs(filepath, vecs):
+    with open(filepath, 'wb') as f:
+        pickle.dump(vecs, f)
+
+
+
 def main():
+    network = ''
     args = parser.parse_args()
 
     # check if there are unknown datasets
@@ -80,7 +97,7 @@ def main():
 
     # loading network from path
     if args.network_path is not None:
-
+        network = args.network_path
         print(">> Loading network:\n>>>> '{}'".format(args.network_path))
         if args.network_path in PRETRAINED:
             # pretrained networks (downloaded automatically)
@@ -115,7 +132,7 @@ def main():
 
     # loading offtheshelf network
     elif args.network_offtheshelf is not None:
-        
+        network = args.network_offtheshelf
         # parse off-the-shelf parameters
         offtheshelf = args.network_offtheshelf.split('-')
         net_params = {}
@@ -215,6 +232,7 @@ def main():
 
     else:
         Lw = None
+    
 
     # evaluate on test datasets
     datasets = args.datasets.split(',')
@@ -227,6 +245,9 @@ def main():
         cfg = configdataset(dataset, os.path.join(get_data_root(), 'test'))
         images = [cfg['im_fname'](cfg,i) for i in range(cfg['n'])]
         qimages = [cfg['qim_fname'](cfg,i) for i in range(cfg['nq'])]
+        qimages = [x.replace('/data/test/'+dataset+'/jpg/', '/query/'+dataset+'/') for x in qimages]
+        #print(images)
+        #print(qimages)
         try:
             bbxs = [tuple(cfg['gnd'][i]['bbx']) for i in range(cfg['nq'])]
         except:
@@ -234,7 +255,12 @@ def main():
         
         # extract database and query vectors
         print('>> {}: database images...'.format(dataset))
-        vecs = extract_vectors(net, images, args.image_size, transform, ms=ms, msp=msp)
+        vec_path = get_pkl_path(dataset, network)
+        if os.path.exists(vec_path):
+            vecs = get_vecs(vec_path)
+        else:
+            vecs = extract_vectors(net, images, args.image_size, transform, ms=ms, msp=msp)
+            save_vecs(vec_path, vecs)
         print('>> {}: query images...'.format(dataset))
         qvecs = extract_vectors(net, qimages, args.image_size, transform, bbxs=bbxs, ms=ms, msp=msp)
         

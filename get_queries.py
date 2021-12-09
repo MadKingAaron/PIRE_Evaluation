@@ -7,13 +7,14 @@ oxford_queries = ["all_souls_000013", "all_souls_000026", "oxford_002985", "all_
 paris_queries = ["paris_defense_000605", "paris_defense_000331", "paris_defense_000216", "paris_defense_000056", "paris_defense_000254", "paris_general_002985", "paris_general_001729", "paris_eiffel_000266", "paris_general_002645", "paris_general_002391", "paris_invalides_000355", "paris_invalides_000072", "paris_invalides_000490", "paris_invalides_000229", "paris_invalides_000360", "paris_louvre_000081", "paris_louvre_000135", "paris_louvre_000050", "paris_louvre_000035", "paris_louvre_000139", "paris_moulinrouge_000667", "paris_moulinrouge_000868", "paris_moulinrouge_000657", "paris_moulinrouge_000794", "paris_moulinrouge_000004", "paris_museedorsay_000527", "paris_museedorsay_000012", "paris_museedorsay_000897", "paris_museedorsay_000564", "paris_museedorsay_000878", "paris_notredame_000256", "paris_notredame_000965", "paris_notredame_000390", "paris_general_003117", "paris_notredame_000581", "paris_pantheon_000466", "paris_pantheon_000520", "paris_pantheon_000232", "paris_pantheon_000547", "paris_pantheon_000339", "paris_pompidou_000432", "paris_pompidou_000444", "paris_pompidou_000252", "paris_pompidou_000471", "paris_pompidou_000636", "paris_sacrecoeur_000162", "paris_sacrecoeur_000417", "paris_sacrecoeur_000237", "paris_sacrecoeur_000586", "paris_sacrecoeur_000437", "paris_triomphe_000369", "paris_triomphe_000016", "paris_triomphe_000135", "paris_triomphe_000149", "paris_defense_000038"]
 
 def generate_path(dataset:str)->str:
-    path = os.path.abspath(os.getcwd())
-    path = os.path.join(path, 'cnnimageretrieval-pytorch')
-    path = os.path.join(path, 'data')
-    path = os.path.join(path, 'test')
-    path = os.path.join(path, dataset)
-    path = os.path.join(path, 'jpg')
-    return path
+    return os.path.join(os.path.abspath(os.getcwd()), dataset)
+    # path = os.path.abspath(os.getcwd())
+    # path = os.path.join(path, 'cnnimageretrieval-pytorch')
+    # path = os.path.join(path, 'data')
+    # path = os.path.join(path, 'test')
+    # path = os.path.join(path, dataset)
+    # path = os.path.join(path, 'jpg')
+    # return path
     
 
 def search_name(file_name, name_list):
